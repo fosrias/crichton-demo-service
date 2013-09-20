@@ -1,6 +1,6 @@
 # Overview
-This demo service is a vanilla implementation of a Rails application using Crichton. It exposes several resources
-representing Diagnostic Repair Drones (DRDs). 
+This demo service is a vanilla implementation of a Rails application using [Crichton](https://github.com/mdsol/crichton). 
+It exposes several resources representing Diagnostic Repair Drones (DRDs). 
 
 The Crichton [resource_descriptor](api_descriptors/drds_descriptor_v1.yml) describes a simple state machine with
 conditions on the various transitions. These conditions would typically be determined in the context of a request
