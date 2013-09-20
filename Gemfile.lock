@@ -1,7 +1,7 @@
 GIT
   remote: git@github.com:mdsol/crichton.git
-  revision: d402662879b8d1020be52992294a48740e41a82a
-  branch: hypermedia_controllers 
+  revision: ad219279640751ad78242af37a2abe5ab9f529d4
+  branch: develop 
   specs:
     crichton (0.0.1)
       activesupport (~> 3.2.0)
