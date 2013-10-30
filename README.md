@@ -19,6 +19,8 @@ $ rake setup
 $ bundle exec rackup -p 3000
 ```
 
+NOTE: You will need to run `rake update_drd` after `bundle update`
+
 ## Exploring
 
 Take a look at the controllers and models to see the basic implementation for both single entities and resources that
