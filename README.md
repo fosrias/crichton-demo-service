@@ -19,6 +19,7 @@ $ rake setup
 $ bundle exec rackup -p 3000
 ```
 
+
 ## Exploring
 
 Take a look at the controllers and models to see the basic implementation for both single entities and resources that
