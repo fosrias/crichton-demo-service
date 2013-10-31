@@ -19,7 +19,6 @@ $ rake setup
 $ bundle exec rackup -p 3000
 ```
 
-NOTE: You will need to run `rake update_drd` after `bundle update`
 
 ## Exploring
 
