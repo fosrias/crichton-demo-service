@@ -1,7 +1,7 @@
 class UuidBase < ActiveRecord::Base
   self.primary_key = :uuid
   self.table_name = :drds
-  attr_accessible :uuid, :status, :leviathan_uuid, :kind, :built_at, :name, :leviathan_url
+  attr_accessible :uuid, :status, :leviathan_uuid, :kind, :built_at, :name, :leviathan_url, :size, :location
 
   before_create :generate_defaults
 
@@ -15,5 +15,7 @@ class UuidBase < ActiveRecord::Base
     self.kind ||= 'standard'
     self.leviathan_url = "http://farscape.example.org/leviathan/#{self.leviathan_uuid || SecureRandom.uuid}"
     self.built_at = Time.now
+    self.size = 'medium'
+    self.location = 'somewhere'
   end
 end

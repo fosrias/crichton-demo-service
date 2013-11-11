@@ -8,7 +8,8 @@ class Drds
 
     drds_collection = {
       total_count: drds.count, 
-      items: drds
+      items: drds,
+      location_options: lambda {|h| {'list' => ['option1', 'option2a']} }
     }
     build_state_representor(drds_collection, :drds, {state: state})
   end
