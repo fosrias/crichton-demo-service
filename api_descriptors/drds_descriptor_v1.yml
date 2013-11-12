@@ -339,7 +339,7 @@ descriptors:
                     active: activated
                     inactive: deactivated
                     unknown: renegade
-                  src: status_options
+                  source: status_options
               form-kind:
                 type: semantic
                 name: kind
@@ -367,7 +367,7 @@ descriptors:
                 sample: moya
                 field_type: select
                 options:
-                  src: location_options
+                  source: location_options
                   hash:
                     moya: Moya
                     elack: Elack
