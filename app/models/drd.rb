@@ -16,9 +16,11 @@ class Drd < UuidBase
   end
 
   def status_options(options_structure = {})
-    options_structure = options_structure.dup
-    options_structure.delete('hash')
-    options_structure['list'] = ['option1', 'option4']
+    if kind == 'standard'
+      options_structure = options_structure.dup
+      options_structure.delete('hash')
+      options_structure['list'] = ['option1', 'option4']
+    end
     options_structure
   end
 
