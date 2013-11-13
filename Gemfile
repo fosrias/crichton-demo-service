@@ -27,5 +27,11 @@ gem 'nokogiri'
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+group :test do
+  gem 'webmock',        '~> 1.13.0'
+  gem 'debugger',      '~> 1.5.0'
+  gem 'equivalent-xml', '~> 0.3.0'
+  gem 'rspec',          '~> 2.13.0'
+  gem 'simplecov',      '~> 0.7.1'
+end
+
