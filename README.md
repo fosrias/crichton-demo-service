@@ -19,6 +19,7 @@ $ rake setup
 $ bundle exec rackup -p 3000
 ```
 
+Note:  In some instances, it may be necessary to run a `bundle update` to update the crichton gem with the latest version.
 
 ## Exploring
 
