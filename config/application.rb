@@ -58,5 +58,3 @@ module CrichtonDemoService
     config.assets.version = '1.0'
   end
 end
-
-require 'transition_decorator'
