@@ -5,7 +5,7 @@ module Crichton
   module Descriptor
     ##
     # Manages retrieving the transitions associated with transition descriptors from a target object.
-    class TransitionDecorator < Detail
+    class TransitionDecorator < DetailDecorator
       
       alias :old_templated? :templated?
       
