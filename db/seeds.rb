@@ -13,6 +13,8 @@
     kind: Random.rand(2) > 0 ? 'standard' : 'sentinel',
     leviathan_uuid: leviathan_uuid = SecureRandom.uuid,
     leviathan_url: "http://farscape.example.org/leviathan/#{leviathan_uuid}",
-    built_at: Time.now
+    built_at: Time.now,
+    size: 'medium',
+    location: 'somewhere'
   )
 end

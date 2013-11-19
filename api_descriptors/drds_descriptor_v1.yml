@@ -268,6 +268,25 @@ descriptors:
         type: semantic
         href: http://alps.io/schema.org/Thing/Leviathan
         embed: single-optional
+      size:
+        doc: How large it is
+        type: semantic
+        href: http://alps.io/schema.org/Text
+        sample: medium
+        options:
+          list:
+          - small
+          - medium
+          - large
+      location:
+        doc: The area the DRD is currently in
+        type: semantic
+        href: http://alps.io/schema.org/Text
+        sample: moya
+        options:
+          hash:
+            moya: Moya
+            elack: Elack
       # Transitions
       show:
         doc: Shows a particular DRD.
@@ -310,10 +329,17 @@ descriptors:
                 doc: How is the DRD.
                 href: http://alps.io/schema.org/Text
                 name: status
-                field_type: text
+                field_type: select
                 validators:
                   - required
                 sample: activated
+                options:
+                  id: drd_status_options
+                  hash:
+                    active: activated
+                    inactive: deactivated
+                    unknown: renegade
+                  source: status_options
               form-kind:
                 type: semantic
                 name: kind
@@ -321,6 +347,30 @@ descriptors:
                 href: http://alps.io/schema.org/Text
                 field_type: boolean
                 sample: true
+              form-size:
+                doc: How large it is
+                name: size
+                type: semantic
+                href: http://alps.io/schema.org/Text
+                sample: medium
+                field_type: select
+                options:
+                  list:
+                    - small
+                    - medium
+                    - large
+              form-location:
+                type: semantic
+                name: location
+                doc: The area the DRD is currently in
+                href: http://alps.io/schema.org/Text
+                sample: moya
+                field_type: select
+                options:
+                  source: location_options
+                  hash:
+                    moya: Moya
+                    elack: Elack
       delete:
         doc: Drops a DRD out an air-lock.
         type: idempotent    

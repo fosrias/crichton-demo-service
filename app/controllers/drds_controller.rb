@@ -61,6 +61,8 @@ class DrdsController < ApplicationController
   end
   
   def options
-    (conditions = params[:conditions]) ? {conditions: conditions.split(',').map(&:strip)} : {}
+    opts = (conditions = params[:conditions]) ? {conditions: conditions.split(',').map(&:strip)} : {}
+    opts[:embed_optional] = {'name1' => :embed, 'name2' => :link}
+    opts
   end
 end
