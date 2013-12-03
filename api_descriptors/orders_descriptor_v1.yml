@@ -57,12 +57,12 @@ states:
             - can_do_anything
           next:
             - shipped
-        delete:
+        cancel:
           conditions:
-            - can_delete
+            - can_cancel
             - can_do_anything
           next:
-            - deleted
+            - cancelled
     shipped:
       doc: Shipped orders.
       transitions:
@@ -83,6 +83,19 @@ states:
           name: self
           next:
             - delivered
+        delete:
+          conditions:
+            - can_delete
+            - can_do_anything
+          next:
+            - deleted
+    cancelled:
+      doc: Cancelled order
+      transitions:
+        show:
+          name: self
+          next:
+            - cancelled
         delete:
           conditions:
             - can_delete
@@ -116,6 +129,27 @@ descriptors:
         name: self
         type: safe
         rt: orders
+      search:
+        doc: Returns a list of orders that satisfy the search term.
+        type: safe
+        rt: orders
+        descriptors:
+          search-name:
+            doc: Search by name.
+            name: name
+            type: semantic
+            href: http://alps.io/schema.org/Text
+            field_type: text
+            sample: laptop
+          search-status:
+            doc: Search by status.
+            name: status
+            type: semantic
+            href: http://alps.io/schema.org/Text
+            field_type: select
+            options:
+              source: order_status_options
+              href: Orders#order_status_options
       create:
         doc: Creates an order.
         type: unsafe
@@ -196,6 +230,7 @@ descriptors:
             placed: placed
             delivered: delivered
             shipped: shipped
+            cancelled: cancelled
       express:
         doc: Indication whether shipment is express.
         type: semantic
@@ -264,6 +299,10 @@ descriptors:
                 doc: Indication whether shipment is express.
                 field_type: boolean
                 sample: true
+      cancel:
+        doc: Cancel order
+        type: idempotent
+        rt: none
       deliver:
         doc: Deliver package
         type: idempotent
@@ -359,7 +398,18 @@ protocols:
       headers:
       status_codes:
         200:
-          description: Shipped
+          description: Shipped.
+      slt: *slt2
+    cancel:
+      uri: orders/{uuid}/cancel
+      method: PUT
+      content_types:
+        - application/json
+        - application/hal+json
+      headers:
+      status_codes:
+        200:
+          description: Cancelled.
       slt: *slt2
     deliver:
       uri: orders/{uuid}/deliver
