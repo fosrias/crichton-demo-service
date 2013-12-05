@@ -336,10 +336,6 @@ protocols:
           description: OK
           notes:
             - We have processed your request and returned the data you asked for.
-      slt: &slt1
-        99th_percentile: 100ms
-        std_dev: 25ms
-        requests_per_second: 50
     search:
       uri: orders
       method: GET
@@ -350,10 +346,6 @@ protocols:
       status_codes:
         200:
           description: OK
-      slt: &slt2
-        99th_percentile: 250ms
-        std_dev: 50ms
-        requests_per_second: 25
     create:
       uri: orders
       method: POST
@@ -366,7 +358,6 @@ protocols:
           description: Created
         403:
           description: Permission denied
-      slt: *slt2
     show:
       uri: orders/{uuid}
       method: GET
@@ -377,7 +368,6 @@ protocols:
       status_codes:
         200:
           description: OK
-      slt: *slt1
     update:
       uri: orders/{uuid}
       method: PUT
@@ -388,7 +378,6 @@ protocols:
       status_codes:
         200:
           description: Updated
-      slt: *slt2
     ship:
       uri: orders/{uuid}/ship
       method: PUT
@@ -399,7 +388,6 @@ protocols:
       status_codes:
         200:
           description: Shipped.
-      slt: *slt2
     cancel:
       uri: orders/{uuid}/cancel
       method: PUT
@@ -410,7 +398,6 @@ protocols:
       status_codes:
         200:
           description: Cancelled.
-      slt: *slt2
     deliver:
       uri: orders/{uuid}/deliver
       method: PUT
@@ -421,7 +408,6 @@ protocols:
       status_codes:
         200:
           description: Delivered
-      slt: *slt2
     delete:
       uri: orders/{uuid}
       method: DELETE
@@ -434,24 +420,3 @@ protocols:
           description: Deleted
         403:
           description: Permission denied
-      slt: *slt1
-
-routes:
-  orders:
-    list: &list
-      controller: orders_controller
-      action: index
-    search: *list
-    create:
-      controller: orders_controller
-      action: create
-  order:
-    show:
-      controller: orders_controller
-      action: show
-    update:
-      controller: orders_controller
-      action: update
-    delete:
-      controller: orders_controller
-      action: update
