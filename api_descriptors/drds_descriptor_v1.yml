@@ -203,9 +203,6 @@ descriptors:
                 href: http://alps.io/schema.org/Text
                 field_type: text
                 sample: 1234-5678-9abc-def1
-                validators:
-                  - required
-                  - pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
               form-leviathan_health_points:
                 name: leviathan_health_points
                 doc: The health points of Leviathan.
@@ -251,35 +248,21 @@ descriptors:
         type: semantic
         href: http://alps.io/schema.org/Text
         sample: renegade
-        options:
-          id: drd_status_options
-          hash:
-            active: activated
-            inactive: deactivated
-            unknown: renegade
       old_status:
         doc: How was the DRD before the last change
         type: semantic
         href: http://alps.io/schema.org/Text
         sample: renegade
-        options:
-          href: DRDs#drd_status_options
       kind:
         doc: What kind is it.
         type: semantic
         href: http://alps.io/schema.org/Text
         sample: standard
-        options:
-          list:
-            - standard
-            - sentinel
       size:
         doc: How large it is
         type: semantic
         href: http://alps.io/schema.org/Text
         sample: medium
-        options:
-          datalist: size-list
       leviathan_uuid:
         doc: The UUID of the creator Leviathan.
         type: semantic
@@ -300,19 +283,11 @@ descriptors:
         type: semantic
         href: http://alps.io/schema.org/Text
         sample: moya
-        options:
-          external_list: http://crichton.example.com/drd_location_list#items
-          value_attribute_name: location_id
-          text_attribute_name: location_text
       location_detail:
         doc: Exactly where in the location the DRD currenlty is
         type: semantic
         href: http://alps.io/schema.org/Text
         sample: outside
-        options:
-          external_hash: http://crichton.example.com/drd_location_detail_list#items
-          value_attribute_name: location_id
-          text_attribute_name: location_text
       destroyed:
         doc: This DRD has been destroyed
         type: semantic
@@ -365,8 +340,11 @@ descriptors:
                   - required
                 sample: activated
                 options:
-                  source: status_options
-                  href: DRDs#drd_status_options
+                  id: drd_status_options
+                  hash:
+                    active: activated
+                    inactive: deactivated
+                    unknown: renegade
               form-old_status:
                 type: semantic
                 doc: How is the DRD.
@@ -376,8 +354,9 @@ descriptors:
                 validators:
                   - required
                 sample: activated
+                field_type: select
                 options:
-                  datalist: status-list
+                  href: DRDs#drd_status_options
               form-kind:
                 type: semantic
                 name: kind
@@ -395,9 +374,11 @@ descriptors:
                 type: semantic
                 href: http://alps.io/schema.org/Text
                 sample: medium
-                field_type: select
+                field_type: text
                 options:
-                  datalist: size-list
+                  list:
+                    - big
+                    - small
               form-location:
                 type: semantic
                 name: location
@@ -406,10 +387,9 @@ descriptors:
                 sample: moya
                 field_type: select
                 options:
-                  source: location_options
-                  external_list: http://crichton.example.com/drd_location_list#items
-                  value_attribute_name: location_id
-                  text_attribute_name: location_text
+                  id: location_external_href
+                  external:
+                    source: location_options
               form-location_detail:
                 type: semantic
                 name: location_detail
@@ -418,9 +398,7 @@ descriptors:
                 sample: inside
                 field_type: select
                 options:
-                  external_hash: http://crichton.example.com/drd_location_detail_list#items
-                  value_attribute_name: location_detail_id
-                  text_attribute_name: location_detail_text
+                  href: DRDs#location_external_href
               form-destroyed:
                 doc: This DRD has been destroyed
                 type: semantic
@@ -431,19 +409,6 @@ descriptors:
         doc: Drops a DRD out an air-lock.
         type: idempotent    
         rt: none
-
-datalists:
-  kind-list:
-    - standard
-    - sentinel
-  status-list:
-    active: activated
-    inactive: deactivated
-    unknown: renegade
-  size-list:
-    - small
-    - medium
-    - large
 
 # The protocol descriptors section defines the protocol affordances associated with the 
 # application affordances. This decouples protocol specific information from the 

@@ -1,6 +1,7 @@
 require 'uuid_base'
 
 class Drd < UuidBase
+  include DrdsDecorator
   include Crichton::Representor::State
   represents :drd
   state_method :status

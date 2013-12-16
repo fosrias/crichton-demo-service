@@ -1,6 +1,7 @@
 require 'crichton/representor/factory'
 
 class Drds
+  extend DrdsDecorator
   extend Crichton::Representor::Factory
   
   def self.find(search_term)
@@ -8,7 +9,8 @@ class Drds
 
     drds_collection = {
       total_count: drds.count, 
-      items: drds
+      items: drds,
+      location_options: ->(options){ location_options(options) }
     }
     build_state_representor(drds_collection, :drds, {state: state})
   end
