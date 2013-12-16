@@ -269,9 +269,12 @@ descriptors:
                 name: address
                 doc: Shipping address of the address.
                 href: http://alps.io/schema.org/Text
-                field_type: select
+                field_type: text
                 options:
-                  datalist: address-list
+                  list:
+                    - New York
+                    - Brooklyn
+                    - Dark side of the Moon
               form-status:
                 doc: Update status of the order.
                 name: status
@@ -311,12 +314,6 @@ descriptors:
         doc: Deletes order from the system.
         type: idempotent
         rt: none
-
-datalists:
-  address-list:
-    - New York
-    - Brooklyn
-    - Dark side of the Moon
 
 protocols:
   http:
