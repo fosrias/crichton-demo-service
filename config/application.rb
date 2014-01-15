@@ -62,4 +62,3 @@ module CrichtonDemoService
 	config.middleware.use "Crichton::Middleware::ResourceHomeResponse", {'expiry' => 20}
   end
 end
-

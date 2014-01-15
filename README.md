@@ -19,6 +19,7 @@ $ rake setup
 $ bundle exec rackup -p 3000
 ```
 
+Note:  In some instances, it may be necessary to run a `bundle update` to update the crichton gem with the latest version.
 
 ## Exploring
 
@@ -69,6 +70,8 @@ The demo supports "home" entry point requests in various media types. To do this
 in config/application.rb:
 
 ...
+$ require 'crichton/middleware/resource_home_response'
+...
 $ # expiry is optional, # of minutes to expire the request response, string or symbol
 $ config.middleware.use "Crichton::Middleware::ResourceHomeResponse", {'expiry' => 20}
 
@@ -79,7 +82,7 @@ In your browser, you simply call the root of the service: http://localhost:3000
 You can also use curl with many media types. The home responder looks at the ACCEPT_HEADER entry in the request
 header. With curl, one uses --header 'Accepts: <media_type>'
 
-$ curl --header "Accept: text/html" localhost:3000
+$ curl -v --header "Accept: text/html" localhost:3000
 
 The following are acceptable media types and the content type set in the response header
 
