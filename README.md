@@ -98,5 +98,5 @@ The following are acceptable media types and the content type set in the respons
 
 If one sends in nothing or an unsupported media type, the server returns with:
 
-Not Acceptable media type(s): <media_type> , supported types are: text/html, application/xhtml+xml, application/xml, application/json-home, application/json, */*
+> Not Acceptable media type(s): bad_media_type , supported types are: text/html, application/xhtml+xml, application/xml, application/json-home, application/json, asterisk/asterisk
 
