@@ -2,6 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'crichton'
+require 'crichton/middleware/resource_home_response'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -56,7 +57,9 @@ module CrichtonDemoService
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+	# expiry is optional, # of minutes to expire the request response, string or symbol
+	config.middleware.use "Crichton::Middleware::ResourceHomeResponse", {'expiry' => 20}
   end
 end
 
-require 'transition_decorator'
