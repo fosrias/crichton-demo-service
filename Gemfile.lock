@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:mdsol/crichton.git
-  revision: b9b004238029d2363415f27cad1a5b92922a188b
+  revision: 1a5f1b2e5675fdfda147b6239f9808925884add3
   branch: crichton-demo
   specs:
     crichton (0.0.1)
@@ -57,7 +57,7 @@ GEM
       debugger-linecache (~> 1.2.0)
       debugger-ruby_core_source (~> 1.2.0)
     debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.3)
+    debugger-ruby_core_source (1.2.4)
     dice_bag (0.7.0)
       rake
     diff-lcs (1.2.5)
@@ -66,22 +66,22 @@ GEM
       nokogiri (>= 1.4.3)
     erubis (2.7.0)
     hike (1.2.3)
-    i18n (0.6.5)
+    i18n (0.6.9)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
-    launchy (2.4.0)
+    launchy (2.4.2)
       addressable (~> 2.3)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.25)
+    mime-types (1.25.1)
     mini_portile (0.5.2)
-    multi_json (1.8.2)
-    nokogiri (1.6.0)
+    multi_json (1.8.4)
+    nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     polyglot (0.3.3)
     rack (1.4.1)
@@ -106,7 +106,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.6)
-    rake (10.1.0)
+    rake (10.1.1)
     rdoc (3.12.2)
       json (~> 1.4)
     rspec (2.13.0)
