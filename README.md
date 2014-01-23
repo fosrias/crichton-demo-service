@@ -63,3 +63,40 @@ If you are wondering what happens if I include an HTML view, change the name of 
 [index.html.orb](app/views/drds/index.html.orb) file to `index.html.erb` and then reload the URL `localhost:3000/drds`.
 
 Hint: it works like it should.
+
+## Home Response
+
+The demo supports "home" entry point requests in various media types. To do this, you must configure rack middleware
+in config/application.rb:
+
+```
+$ require 'crichton/middleware/resource_home_response'
+...
+$ # expiry is optional, # of minutes to expire the request response, string or symbol
+$ config.middleware.use "Crichton::Middleware::ResourceHomeResponse", {'expiry' => 20}
+```
+
+Place one or more resource configuration files in the /api_descriptor folder, then restart the server.
+
+In your browser, you simply call the root of the service: http://localhost:3000
+
+You can also use curl with many media types. The home responder looks at the ACCEPT_HEADER entry in the request
+header. With curl, one uses --header 'Accepts: <media_type>'
+
+```
+$ curl -v --header "Accept: text/html" localhost:3000
+```
+
+The following are acceptable media types and the content type set in the response header
+
+* text/html------------- text/html
+* application/xhtml+xml- application/xhtml+xml
+* application/xml------- application/xml
+* application/json-home- application/json-home
+* application/json------ application/json
+* asterisk/asterisk----- asterisk/asterisk 
+
+If one sends in nothing or an unsupported media type, the server returns with:
+
+> Not Acceptable media type(s): bad_media_type , supported types are: text/html, application/xhtml+xml, application/xml, application/json-home, application/json, asterisk/asterisk
+
