@@ -3,6 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 require 'crichton'
 require 'crichton/middleware/resource_home_response'
+require 'crichton/middleware/alps_profile_response'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -60,5 +61,6 @@ module CrichtonDemoService
 
 	# expiry is optional, # of minutes to expire the request response, string or symbol
 	config.middleware.use "Crichton::Middleware::ResourceHomeResponse", {'expiry' => 20}
+	config.middleware.use "Crichton::Middleware::AlpsProfileResponse", {'expiry' => 20}
   end
 end
