@@ -1,5 +1,5 @@
 class DrdsController < ApplicationController
-  respond_to(:html, :xhtml)
+  respond_to(:html, :xhtml, :hale_json)
   
   def show
     @drd = Drd.find_by_uuid(params[:id])

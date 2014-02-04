@@ -26,10 +26,13 @@ gem 'nokogiri'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
+gem 'ffi-rzmq',  '~> 2.0.1'
+gem 'yajl-ruby', '~> 1.2.0'
+gem 'faraday',   '~> 0.9.0'
 
 group :test do
   gem 'webmock',        '~> 1.13.0'
-  gem 'debugger',      '~> 1.5.0'
+  gem 'debugger',       '~> 1.5.0'
   gem 'equivalent-xml', '~> 0.3.0'
   gem 'rspec',          '~> 2.13.0'
   gem 'simplecov',      '~> 0.7.1'
