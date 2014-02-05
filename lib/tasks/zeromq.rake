@@ -43,6 +43,7 @@ task :run_socket => :environment do
     response = connection.send(method.downcase.to_sym) do |req|
       req.url File.join(socket_address, path)
       (headers || {}).each { |k, v| req.headers[k] = v }
+      req.params = query || {}
       req.body = body
     end
     
