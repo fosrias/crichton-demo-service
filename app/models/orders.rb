@@ -6,11 +6,12 @@ class Orders
   def self.find(params)
     state, orders = find_orders(params)
 
-    orders_collection = {
-        total_count: orders.count,
-        items: orders
-    }
-    build_state_representor(orders_collection, :orders, {state: state})
+    #orders_collection = {
+    #    total_count: orders.count,
+    #    items: orders
+    #}
+    #build_state_representor(orders_collection, :orders, {state: state})
+    orders
   end
 
   private

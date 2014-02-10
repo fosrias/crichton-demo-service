@@ -2,17 +2,17 @@ class OrdersController < ApplicationController
   respond_to :html, :xhtml
 
   def show
-    @order = Order.find_by_uuid(params[:id])
+    @order = build_order_object(Order.find_by_uuid(params[:id]))
     respond_with(@order, options)
   end
 
   def index
-    @orders = Orders.find(order_params)
-    respond_with(@orders, options)
+    @orders = build_orders_object(Orders.find(order_params))
+    respond_with(@orders.value, options)
   end
 
   def create
-    @order = Order.new(order_params)
+    @order = build_order_object(Order.new(order_params))
     if @order.save
       respond_with(@order, options)
     else
@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    @order = Order.find_by_uuid(params[:id])
+    @order = build_order_object(Order.find_by_uuid(params[:id]))
     @order.destroy
     respond_with(@order, options)
   end
@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
 
   private
   def status_transition(options)
-    @order = Order.find_by_uuid(params[:id])
+    @order = build_order_object(Order.find_by_uuid(params[:id]))
 
     if @order.update_attributes(options)
       respond_with(@order, options)

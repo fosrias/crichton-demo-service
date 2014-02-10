@@ -173,6 +173,15 @@ descriptors:
                   - required
                   - maxlength: 50
                 sample: laptop
+              form-payment:
+                name: payment
+                doc: The payment method
+                type: semantic
+                href: http://alps.io/schema.org/Text
+                field_type: select
+                options:
+                  external:
+                    source: payment_methods
               form-email:
                 name: email
                 doc: MAILTO receipt email.
@@ -209,6 +218,11 @@ descriptors:
         type: semantic
         href: http://alps.io/schema.org/Text
         sample: New York
+      payment_id:
+        doc: Payment method
+        type: semantic
+        href: http://alps.io/schema.org/Integer
+        sample: 1
       email:
         doc: MAILTO receipt email.
         type: semantic
