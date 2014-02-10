@@ -7,15 +7,6 @@ CrichtonDemoService::Application.routes.draw do
       put 'deactivate'
     end
   end
-
-  resources :orders do
-    member do
-      put 'ship'
-      put 'deliver'
-    end
-  end
-
-  resources :alps, only: :show
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

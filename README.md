@@ -100,3 +100,41 @@ If one sends in nothing or an unsupported media type, the server returns with:
 
 > Not Acceptable media type(s): bad_media_type , supported types are: text/html, application/xhtml+xml, application/xml, application/json-home, application/json, asterisk/asterisk
 
+## Alps Profile  Response
+
+The demo supports "alps profile" requests in various media types. purely from middleware.  To do this, you must configure rack 
+middleware in config/application.rb:
+
+```
+$ require 'crichton/middleware/alps_profile_response'
+...
+$ # expiry is optional, # of minutes to expire the request response, string or symbol
+$ config.middleware.use "Crichton::Middleware::AlpsProfileResponse", {'expiry' => 20}
+```
+
+Place one or more resource configuration files in the /api_descriptor folder, then restart the server.
+
+In your browser, you can call (and verify) the following alps paths:
+* http://localhost:3000/alps/DRDs
+* http://localhist:3000/alps/DRDs/
+* http://localhist:3000/alps/DRDs#list (#list is an example fragment that is seen when you perform a home request of localhost:3000)
+
+You can also use curl with 3 media types. The home responder looks at the ACCEPT_HEADER entry in the request
+header. With curl, one uses --header 'Accepts: <media_type>'
+
+```
+$ curl -v --header "Accept: text/html" localhost:3000/alps/DRDs
+```
+
+The following are acceptable media types and the content type set in the response header
+
+* text/html------------- application/xml
+* application/alps+xml-- application/alps+xml
+* application/alps+json- application/alps+json
+
+If one sends in nothing or an unsupported media type, the server returns with:
+
+> Not Acceptable media type(s): bad_media_type , supported types are: text/html, application/slps+xml, application/alps+json
+
+If you make a request on a non-existent resource (e.g localhost:3000/alps/blah) the response will be "Profile <ID> not found"
+

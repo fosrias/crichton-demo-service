@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:mdsol/crichton.git
-  revision: 1a5f1b2e5675fdfda147b6239f9808925884add3
+  revision: d7b6129425009cb8e3528efa46ed4593d0a95293
   branch: crichton-demo
   specs:
     crichton (0.0.1)
