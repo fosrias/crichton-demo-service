@@ -7,4 +7,8 @@ module OrderExtensions
       }
     }
   end
+
+  def method_on_target
+    { 'Content-Language' => 'da' }
+  end
 end
