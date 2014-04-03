@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  respond_to :html, :xhtml
+  respond_to :html, :xhtml, :hale_json
 
   def show
     @order = build_order_object(Order.find_by_uuid(params[:id]))
