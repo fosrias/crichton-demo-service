@@ -18,7 +18,8 @@ class OrdersDecorator < BaseDecorator
         shipped_count: collection.select { |item| item.status == :shipped }.count,
         delivered_count: collection.select { |item| item.status == :delivered }.count,
         items: @object || collection,
-        payment_methods: ->(options) { payment_methods(options) }
+        payment_methods: ->(options) { payment_methods(options) },
+        method_on_target: ->() { method_on_target }
     }
     build_state_representor(orders_collection, :orders, {state: :collection})
   end
