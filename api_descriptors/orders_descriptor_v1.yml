@@ -10,6 +10,8 @@ states:
     collection:
       doc: The entry point state for interacting with orders.
       location: entry
+      response_headers:
+        Content-Language: da
       transitions:
         list:
           name: self
