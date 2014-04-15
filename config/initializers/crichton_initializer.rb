@@ -1,3 +1,3 @@
 require 'crichton'
 
-Crichton.register_drds_sample
+Crichton.initialize_registry(File.join(Crichton.descriptor_directory, 'orders_descriptor_v1.yml'))

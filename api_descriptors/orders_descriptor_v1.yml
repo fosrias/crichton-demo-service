@@ -1,0 +1,433 @@
+id: Orders
+version: v1.0.0
+doc: Describes the semantics, states and state transitions associated with orders.
+links:
+  self: Orders
+  help: Things/Orders
+
+states:
+  orders:
+    collection:
+      doc: The entry point state for interacting with orders.
+      location: entry
+      transitions:
+        list:
+          name: self
+          next:
+            - collection
+        search:
+          next:
+            - navigation
+        create:
+          conditions:
+            - can_create
+            - can_do_anything
+          next:
+            - placed
+    navigation:
+      doc: Represents a filtered list of orders.
+      transitions:
+        search:
+          name: self
+          next:
+            - navigation
+        create:
+          conditions:
+            - can_create
+            - can_do_anything
+          next:
+            - placed
+  order:
+    placed:
+      doc: The default state of a order.
+      transitions:
+        show:
+          name: self
+          next:
+            - placed
+        update:
+          conditions:
+            - can_update
+            - can_do_anything
+          next:
+            - placed
+        ship:
+          conditions:
+            - can_ship
+            - can_do_anything
+          next:
+            - shipped
+        cancel:
+          conditions:
+            - can_cancel
+            - can_do_anything
+          next:
+            - cancelled
+    shipped:
+      doc: Shipped orders.
+      transitions:
+        show:
+          name: self
+          next:
+            - shipped
+        deliver:
+          conditions:
+            - can_deliver
+            - can_do_anything
+          next:
+            - delivered
+    delivered:
+      doc: Delivered orders
+      transitions:
+        show:
+          name: self
+          next:
+            - delivered
+        delete:
+          conditions:
+            - can_delete
+            - can_do_anything
+          next:
+            - deleted
+    cancelled:
+      doc: Cancelled order
+      transitions:
+        show:
+          name: self
+          next:
+            - cancelled
+        delete:
+          conditions:
+            - can_delete
+            - can_do_anything
+          next:
+            - deleted
+    deleted:
+      doc: The order has been deleted.
+      location: exit
+
+descriptors:
+  orders:
+    doc:
+      html: <p>A list of orders.</p>
+    type: semantic
+    links:
+      self: Orders#orders
+    descriptors:
+      total_count:
+        doc: The total count of orders.
+        type: semantic
+        href: http://alps.io/schema.org/Integer
+        sample: 1
+      items:
+        doc: An array of embedded order resources.
+        type: semantic
+        href: http://alps.io/schema.org/Array
+        embed: multiple-optional
+      list:
+        doc: Returns a list of orders.
+        name: self
+        type: safe
+        rt: orders
+      search:
+        doc: Returns a list of orders that satisfy the search term.
+        type: safe
+        rt: orders
+        descriptors:
+          search-name:
+            doc: Search by name.
+            name: name
+            type: semantic
+            href: http://alps.io/schema.org/Text
+            field_type: text
+            sample: laptop
+          search-status:
+            doc: Search by status.
+            name: status
+            type: semantic
+            href: http://alps.io/schema.org/Text
+            field_type: select
+            options:
+              source: order_status_options
+              href: Orders#order_status_options
+      create:
+        doc: Creates an order.
+        type: unsafe
+        rt: order
+        descriptors:
+          create-order:
+            doc: Order attributes to create an order.
+            type: semantic
+            href: update-order
+            links:
+              self: Orders#create-order
+              help: Forms/create-order
+            descriptors:
+              form-name:
+                name: name
+                doc: The name of the item.
+                type: semantic
+                href: http://alps.io/schema.org/Text
+                field_type: text
+                validators:
+                  - required
+                  - maxlength: 50
+                sample: laptop
+              form-payment:
+                name: payment
+                doc: The payment method
+                type: semantic
+                href: http://alps.io/schema.org/Text
+                field_type: select
+                options:
+                  external:
+                    source: payment_methods
+              form-email:
+                name: email
+                doc: MAILTO receipt email.
+                type: semantic
+                href: http://alps.io/schema.org/Text
+                field_type: email
+                validators:
+                  - required
+                  - pattern: "^.+@.+$"
+                sample: joe@grumpycat.org
+  order:
+    doc: Placed orders
+    type: semantic
+    links:
+      self: Orders#order
+    descriptors:
+      uuid:
+        doc: The UUID of the order.
+        type: semantic
+        href: http://alps.io/schema.org/Text
+        sample: 007d8e12-babd-4f2c-b01e-8b5e2f749e1b
+      name:
+        doc: The name of the item.
+        type: semantic
+        href: http://alps.io/schema.org/Text
+        sample: order
+      quantity:
+        doc: Total number of items ordered.
+        type: semantic
+        href: http://alps.io/schema.org/Integer
+        sample: 2
+      address:
+        doc: The shipping address of the order
+        type: semantic
+        href: http://alps.io/schema.org/Text
+        sample: New York
+      payment_id:
+        doc: Payment method
+        type: semantic
+        href: http://alps.io/schema.org/Integer
+        sample: 1
+      email:
+        doc: MAILTO receipt email.
+        type: semantic
+        href: http://alps.io/schema.org/Text
+        sample: joe@grumpycat.org
+      placed_on:
+        doc: When the order was submitted.
+        type: semantic
+        href: http://alps.io/schema.org/DateTime
+        sample: 2013-03-20T00:00:00+00:00
+      status:
+        doc: Status of the order.
+        type: semantic
+        href: http://alps.io/schema.org/Text
+        sample: placed
+        options:
+          id: order_status_options
+          hash:
+            placed: placed
+            delivered: delivered
+            shipped: shipped
+            cancelled: cancelled
+      express:
+        doc: Indication whether shipment is express.
+        type: semantic
+        href: http://alps.io/schema.org/Boolean
+        sample: true
+        field_type: boolean
+      show:
+        doc: Shows a particular order.
+        name: self
+        type: safe
+        rt: order
+      update:
+        doc: Updates order.
+        type: idempotent
+        rt: none
+        descriptors:
+          update-order:
+            doc: attributes to update an existing order.
+            type: semantic
+            links:
+              self: Orders#order/update/update-order
+              help: Forms/update-order
+            descriptors:
+              form-quantity:
+                type: semantic
+                name: quantity
+                doc: Number of items to order.
+                href: http://alps.io/schema.org/Integer
+                field_type: number
+                validators:
+                  - required
+                  - min: 1
+                  - max: 10
+              form-address:
+                type: semantic
+                name: address
+                doc: Shipping address of the address.
+                href: http://alps.io/schema.org/Text
+                field_type: text
+                options:
+                  list:
+                    - New York
+                    - Brooklyn
+                    - Dark side of the Moon
+              form-status:
+                doc: Update status of the order.
+                name: status
+                type: semantic
+                href: http://alps.io/schema.org/Text
+                field_type: select
+                options:
+                  source: order_status_options
+                  href: Orders#order_status_options
+      ship:
+        doc: Ship package.
+        type: idempotent
+        rt: none
+        descriptors:
+          ship-order:
+            doc: attributes to ship an existing order
+            type: semantic
+            links:
+              self: Orders#order/update/update-order
+              help: Forms/update-order
+            descriptors:
+              form-express:
+                type: semantic
+                name: express
+                doc: Indication whether shipment is express.
+                field_type: boolean
+                sample: true
+      cancel:
+        doc: Cancel order
+        type: idempotent
+        rt: none
+      deliver:
+        doc: Deliver package
+        type: idempotent
+        rt: none
+      delete:
+        doc: Deletes order from the system.
+        type: idempotent
+        rt: none
+
+protocols:
+  http:
+    list:
+      uri: orders
+      entry_point: orders # Indicates this endpoint is a resource entry point for the protocol.
+      method: GET
+      content_types:
+        - application/json
+        - application/hal+json
+        - application/xhtml+xml
+      headers:
+        - Content-Type
+        - ETag
+      status_codes:
+        200:
+          description: OK
+          notes:
+            - We have processed your request and returned the data you asked for.
+    search:
+      uri: orders
+      method: GET
+      content_types:
+        - application/json
+        - application/hal+json
+      headers:
+      status_codes:
+        200:
+          description: OK
+    create:
+      uri: orders
+      method: POST
+      content_types:
+        - application/json
+        - application/hal+json
+      headers:
+      status_codes:
+        201:
+          description: Created
+        403:
+          description: Permission denied
+    show:
+      uri: orders/{uuid}
+      method: GET
+      content_types:
+        - application/json
+        - application/hal+json
+      headers:
+      status_codes:
+        200:
+          description: OK
+    update:
+      uri: orders/{uuid}
+      method: PUT
+      content_types:
+        - application/json
+        - application/hal+json
+      headers:
+      status_codes:
+        200:
+          description: Updated
+    ship:
+      uri: orders/{uuid}/ship
+      method: PUT
+      content_types:
+        - application/json
+        - application/hal+json
+      headers:
+      status_codes:
+        200:
+          description: Shipped.
+    cancel:
+      uri: orders/{uuid}/cancel
+      method: PUT
+      content_types:
+        - application/json
+        - application/hal+json
+      headers:
+      status_codes:
+        200:
+          description: Cancelled.
+    deliver:
+      uri: orders/{uuid}/deliver
+      method: PUT
+      content_types:
+        - application/json
+        - application/hal+json
+      headers:
+      status_codes:
+        200:
+          description: Delivered
+    delete:
+      uri: orders/{uuid}
+      method: DELETE
+      content_types:
+        - application/json
+        - application/hal+json
+      headers:
+      status_codes:
+        200:
+          description: Deleted
+        403:
+          description: Permission denied

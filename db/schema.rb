@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130916224331) do
+ActiveRecord::Schema.define(:version => 20131202183353) do
 
   create_table "drds", :id => false, :force => true do |t|
     t.string   "uuid"
@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(:version => 20130916224331) do
     t.string   "leviathan_uuid"
     t.string   "leviathan_url"
     t.datetime "built_at"
+  end
+
+  create_table "orders", :id => false, :force => true do |t|
+    t.string   "uuid"
+    t.string   "name"
+    t.string   "quantity"
+    t.string   "email"
+    t.string   "address"
+    t.datetime "placed_on"
+    t.string   "status"
+    t.boolean  "express"
   end
 
 end

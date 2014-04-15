@@ -16,3 +16,16 @@
     built_at: Time.now
   )
 end
+
+5.times do |i|
+  Order.create(
+      uuid: SecureRandom.uuid,
+      name: "order_#{i}",
+      quantity: i,
+      address: Random.rand(5) > i ? 'New York' : 'Dark side of the Moon',
+      email: "email_#{i}@email.com",
+      placed_on: Time.now,
+      status: 'placed',
+      express: 0
+  )
+end
