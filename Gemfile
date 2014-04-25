@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '3.2.0'
 
-gem 'crichton', :git => 'git@github.com:mdsol/crichton.git', :branch => 'crichton-demo'
+gem 'crichton', git:  'git@github.com:mdsol/crichton.git', branch: 'implement_updated_resource_descriptor'
 gem 'launchy'
 
 # Use sqlite3 as the database for Active Record
@@ -28,6 +28,9 @@ gem 'nokogiri'
 # gem 'capistrano', group: :development
 
 group :test do
+  gem 'pry', '~> 0.9.12.6'
+  gem 'pry-nav', '~> 0.2.3'
+  gem 'pry-stack_explorer', '~> 0.4.9.1'
   gem 'webmock',        '~> 1.13.0'
   gem 'debugger',      '~> 1.5.0'
   gem 'equivalent-xml', '~> 0.3.0'
