@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:mdsol/crichton.git
-  revision: 026502f16ae0714823a9552db6f423b1dc907d64
+  revision: ff7ed7da7cecde9b4e8d325b86618740b8226ed1
   branch: implement_updated_resource_descriptor
   specs:
     crichton (0.0.1)
