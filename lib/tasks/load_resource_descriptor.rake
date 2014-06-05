@@ -6,6 +6,9 @@ namespace :load do
     gem = Bundler.load.specs.find{ |g| g.name == 'crichton' }
     sample_drd_doc = File.join(gem.full_gem_path, '/spec/fixtures/resource_descriptors/drds_descriptor_v1.yml')
     api_filename = File.join(Dir.pwd, Crichton.descriptor_directory, 'drds_sample_descriptor.yml')
-    FileUtils.cp(sample_drd_doc, api_filename) unless File.exists?(api_filename)
+    unless File.exists?(api_filename)
+      FileUtils.cp(sample_drd_doc, api_filename)
+      puts "Sample resource descriptor file created at #{api_filename}"
+    end
   end
 end
