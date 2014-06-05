@@ -11,4 +11,4 @@ tmp
 .yardoc
 yardoc
 log/*.log
-api_descriptors/*.yml
+api_descriptors/drds_sample_descriptor.yml
