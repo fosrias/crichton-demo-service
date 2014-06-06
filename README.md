@@ -29,8 +29,8 @@ embed other resources with meta-data.
 
 ### Surfing the API in a browser
 Crichton supports the media type `text/html` which allows interacting with an API directly in a browser. Enter the API 
-by opening `localhost:3000` in a browser and and follow your nose. You will find a list of available resource entry 
-points. 
+by opening `http://localhost:3000` in a browser and and follow your nose. You will find a list of available resource 
+entry points. 
 
 Click a URL link to navigate to the associated entry point. You can add the following conditions, either as a single 
 value or comma-separated list at any time, to see what changes when interacting with a resource:
@@ -43,32 +43,32 @@ value or comma-separated list at any time, to see what changes when interacting 
 * can_deactivate
 * airlock_open
 
-E.g. `localhost:3000/drds?conditions=can_delete,can_activate`
+E.g. `http://localhost:3000/drds?conditions=can_delete,can_activate`
 
 ### Curl
 Crichton also supports a number of media-types out of the box. You can explore these [supported media types][] using 
 curl:
 
 ```
-$ curl --header "Content-Type: application/vnd.hale+json" GET localhost:3000/drds
+$ curl --header "Accept: application/vnd.hale+json" GET http://localhost:3000/drds
 ```
 
 You can add the conditions query parameter here as well.
 
 ```
-$ curl --header "Content-Type: application/vnd.hale+json" GET localhost:3000/drds?conditions=airlock_open
+$ curl --header "Accept: application/vnd.hale+json" GET http://localhost:3000/drds?conditions=airlock_open
 ```
 
 ### ALPS
 Don't miss the [ALPS][] profile link when you view source in the head tag for responses and as a "Rel" link at the 
-`localhost:3000` root. This profile (`localhost:3000/alps/DRDs`) is generated from the associated resource 
+`localhost:3000` root. This profile (`http://localhost:3000/alps/DRDs`) is generated from the associated resource 
 descriptor in the [_API Descriptor Document_] and represents all the  semantics and affordances that you will find in a 
 response.
 
 ## Default Rails HTML template responses
 You will notice there are no view templates defined to support the HTML and XHTML media-types. If you are wondering 
 what happens if I include an HTML view, change the name of the [index.html.orb](app/views/drds/index.html.orb) file to 
-`index.html.erb` and then reload the URL `localhost:3000/drds`.
+`index.html.erb` and then reload the URL `http://localhost:3000/drds`.
 
 Hint: It works like it should.
 
