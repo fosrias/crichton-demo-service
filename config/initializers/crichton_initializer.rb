@@ -1,3 +1,3 @@
-require 'crichton'
-
-Crichton.register_drds_sample
+require 'rake'
+CrichtonDemoService::Application.load_tasks
+Rake::Task['load:resource_descriptor'].invoke
