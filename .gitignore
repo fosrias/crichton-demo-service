@@ -11,4 +11,5 @@ tmp
 .yardoc
 yardoc
 log/*.log
+db/*.sqlite3
 api_descriptors/drds_sample_descriptor.yml
