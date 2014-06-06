@@ -1,33 +1,39 @@
 # Overview
-This demo service is a vanilla implementation of a Rails application using [Crichton](https://github.com/mdsol/crichton). 
-It exposes several resources representing Diagnostic Repair Drones (DRDs). 
+This demo service is a vanilla implementation of a Rails application using [Crichton][]. It exposes several resources 
+representing Diagnostic Repair Drones (DRDs). 
 
-The Crichton [resource_descriptor](api_descriptors/drds_descriptor_v1.yml) describes a simple state machine with
+The demo service uses a sample [_API Descriptor Document_][] in Crichton, which describes a simple state machine with
 conditions on the various transitions. These conditions would typically be determined in the context of a request
-and passed in as options in the response. In order to see Crichton's runtime generation of available transitions
-based on both the state of resources and the satisfied conditions, a query parameter ?conditions=can_do_something
-can be added in the browser to mimic this on the fly.
+and passed in as options in the response. It further describes the semantics of the resources and the protocol-specific 
+implementations used to generate the responses. 
 
-It further describes the semantics of the resources and the protocol-specific implementations used to generate
-the responses.
+In order to explore Crichton's runtime generation of available transitions based on both the state of resources and the 
+satisfied conditions, a `condition` query parameter can be added in the browser to mimic this on the fly, as discussed 
+in the examples below.
+
 
 ## Setup
 
 ```
 $ bundle install
 $ rake setup
-$ bundle exec rackup -p 3000
+$ bundle exec rails s -p 3000
 ```
 
-Note:  In some instances, it may be necessary to run a `bundle update` to update the crichton gem with the latest version.
+Note:  In some instances, it may be necessary to run `bundle update` to update the crichton gem with the latest 
+version since it currently points to a Github branch.
 
 ## Exploring
-
 Take a look at the controllers and models to see the basic implementation for both single entities and resources that
 embed other resources with meta-data.
 
-So, enter the API by browsing to `localhost:3000/drds` in browser and and follow your nose. You can add the following 
-conditions, either as a single value, or comma-separated list at any time to see what changes:
+### Surfing the API in a browser
+Crichton supports the media type `text/html` which allows interacting with an API directly in a browser. Enter the API 
+by opening `localhost:3000` in a browser and and follow your nose. You will find a list of available resource entry 
+points. 
+
+Click a URL link to navigate to the associated entry point. You can add the following conditions, either as a single 
+value or comma-separated list at any time, to see what changes when interacting with a resource:
 
 * can_do_anything
 * can_create
@@ -39,102 +45,34 @@ conditions, either as a single value, or comma-separated list at any time to see
 
 E.g. `localhost:3000/drds?conditions=can_delete,can_activate`
 
-## Curling
-Crichton also supports out of the box a lighter xHTML response. You can play with this, as a machine client would,
-using curl:
+### Curl
+Crichton also supports a number of media-types out of the box. You can explore these [supported media types][] using 
+curl:
 
 ```
-$ curl --header "Content-Type: application/xhtml+xml" GET localhost:3000/drds
+$ curl --header "Content-Type: application/vnd.hale+json" GET localhost:3000/drds
 ```
 
 You can add the conditions query parameter here as well.
 
 ```
-$ curl --header "Content-Type: application/xhtml+xml" GET localhost:3000/drds?conditions=airlock_open
+$ curl --header "Content-Type: application/vnd.hale+json" GET localhost:3000/drds?conditions=airlock_open
 ```
 
-## ALPS
-Don't miss the profile link when you view source in the head tag for responses. This ALPS profile is generated from
-the resource descriptor and represents all the semantics and affordances that you will find in a response:
-`localhost:3000/alps/DRDs`
+### ALPS
+Don't miss the [ALPS][] profile link when you view source in the head tag for responses and as a "Rel" link at the 
+`localhost:3000` root. This profile (`localhost:3000/alps/DRDs`) is generated from the associated resource 
+descriptor in the [_API Descriptor Document_] and represents all the  semantics and affordances that you will find in a 
+response.
 
-## Default Rails HTML responses
-If you are wondering what happens if I include an HTML view, change the name of the 
-[index.html.orb](app/views/drds/index.html.orb) file to `index.html.erb` and then reload the URL `localhost:3000/drds`.
+## Default Rails HTML template responses
+You will notice there are no view templates defined to support the HTML and XHTML media-types. If you are wondering 
+what happens if I include an HTML view, change the name of the [index.html.orb](app/views/drds/index.html.orb) file to 
+`index.html.erb` and then reload the URL `localhost:3000/drds`.
 
-Hint: it works like it should.
+Hint: It works like it should.
 
-## Home Response
-
-The demo supports "home" entry point requests in various media types. To do this, you must configure rack middleware
-in config/application.rb:
-
-```
-$ require 'crichton/middleware/resource_home_response'
-...
-$ # expiry is optional, # of minutes to expire the request response, string or symbol
-$ config.middleware.use "Crichton::Middleware::ResourceHomeResponse", {'expiry' => 20}
-```
-
-Place one or more resource configuration files in the /api_descriptor folder, then restart the server.
-
-In your browser, you simply call the root of the service: http://localhost:3000
-
-You can also use curl with many media types. The home responder looks at the ACCEPT_HEADER entry in the request
-header. With curl, one uses --header 'Accepts: <media_type>'
-
-```
-$ curl -v --header "Accept: text/html" localhost:3000
-```
-
-The following are acceptable media types and the content type set in the response header
-
-* text/html------------- text/html
-* application/xhtml+xml- application/xhtml+xml
-* application/xml------- application/xml
-* application/json-home- application/json-home
-* application/json------ application/json
-* asterisk/asterisk----- asterisk/asterisk 
-
-If one sends in nothing or an unsupported media type, the server returns with:
-
-> Not Acceptable media type(s): bad_media_type , supported types are: text/html, application/xhtml+xml, application/xml, application/json-home, application/json, asterisk/asterisk
-
-## Alps Profile  Response
-
-The demo supports "alps profile" requests in various media types. purely from middleware.  To do this, you must configure rack 
-middleware in config/application.rb:
-
-```
-$ require 'crichton/middleware/alps_profile_response'
-...
-$ # expiry is optional, # of minutes to expire the request response, string or symbol
-$ config.middleware.use "Crichton::Middleware::AlpsProfileResponse", {'expiry' => 20}
-```
-
-Place one or more resource configuration files in the /api_descriptor folder, then restart the server.
-
-In your browser, you can call (and verify) the following alps paths:
-* http://localhost:3000/alps/DRDs
-* http://localhist:3000/alps/DRDs/
-* http://localhist:3000/alps/DRDs#list (#list is an example fragment that is seen when you perform a home request of localhost:3000)
-
-You can also use curl with 3 media types. The home responder looks at the ACCEPT_HEADER entry in the request
-header. With curl, one uses --header 'Accepts: <media_type>'
-
-```
-$ curl -v --header "Accept: text/html" localhost:3000/alps/DRDs
-```
-
-The following are acceptable media types and the content type set in the response header
-
-* text/html------------- application/xml
-* application/alps+xml-- application/alps+xml
-* application/alps+json- application/alps+json
-
-If one sends in nothing or an unsupported media type, the server returns with:
-
-> Not Acceptable media type(s): bad_media_type , supported types are: text/html, application/slps+xml, application/alps+json
-
-If you make a request on a non-existent resource (e.g localhost:3000/alps/blah) the response will be "Profile <ID> not found"
-
+[Crichton]: https://github.com/mdsol/crichton/tree/crichton-demo
+[_API Descriptor Document_]: https://github.com/mdsol/crichton/blob/crichton-demo/spec/fixtures/resource_descriptors/drds_descriptor_v1.yml
+[supported media types]: https://github.com/mdsol/crichton/tree/crichton-demo#supported-media-types
+[ALPS]: http://alps.io/spec/index.html

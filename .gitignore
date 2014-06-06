@@ -11,3 +11,4 @@ tmp
 .yardoc
 yardoc
 log/*.log
+db/*.sqlite3
