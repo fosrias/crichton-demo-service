@@ -14,6 +14,7 @@ end
 
 module CrichtonDemoService
   class Application < Rails::Application
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -59,8 +60,8 @@ module CrichtonDemoService
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-	# expiry is optional, # of minutes to expire the request response, string or symbol
-	config.middleware.use "Crichton::Middleware::ResourceHomeResponse", {'expiry' => 20}
-	config.middleware.use "Crichton::Middleware::AlpsProfileResponse", {'expiry' => 20}
+    # expiry is optional, # of minutes to expire the request response, string or symbol
+    config.middleware.use "Crichton::Middleware::ResourceHomeResponse", {'expiry' => 20}
+    config.middleware.use "Crichton::Middleware::AlpsProfileResponse", {'expiry' => 20}
   end
 end
