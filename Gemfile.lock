@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:mdsol/crichton.git
-  revision: be8dada9e2f6def9e582da0fced21cb7f8a2ab68
+  revision: e47023872d53eee27738dcd5948fb09abbd8308c
   branch: crichton-demo
   specs:
     crichton (0.0.1)
@@ -66,11 +66,6 @@ GEM
     erubis (2.7.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
-    ffi (1.9.3)
-    ffi-rzmq (2.0.1)
-      ffi-rzmq-core (>= 1.0.1)
-    ffi-rzmq-core (1.0.3)
-      ffi (~> 1.9)
     hike (1.2.3)
     i18n (0.6.9)
     journey (1.0.4)
@@ -153,7 +148,6 @@ DEPENDENCIES
   debugger (~> 1.5.0)
   equivalent-xml (~> 0.3.0)
   faraday (~> 0.9.0)
-  ffi-rzmq (~> 2.0.1)
   jquery-rails
   launchy
   nokogiri

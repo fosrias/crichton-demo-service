@@ -1,9 +1,11 @@
+# Note: You must install 0mq libraries separately for this rake task to work and uncomment associated gem 
+# declaration in Gemfile.
+
 require 'yajl'
-require 'ffi-rzmq'
+#require 'ffi-rzmq'  uncomment to use.
 require 'faraday'
 require 'socket'
 
-# Note: You must install 0mq libraries separately for this rake task to work.
 
 task :run_socket => :environment do
   $stdout.sync = true
