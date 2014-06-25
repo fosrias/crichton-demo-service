@@ -8,6 +8,7 @@ namespace :load do
     gem = Bundler.load.specs.find{ |g| g.name == 'crichton' }
     sample_drd_doc = File.join(gem.full_gem_path, '/spec/fixtures/resource_descriptors/drds_descriptor_v1.yml')
     api_filename = File.join(Dir.pwd, Crichton.descriptor_directory, 'drds_sample_descriptor.yml')
+    FileUtils.mkdir(Crichton.descriptor_directory) unless Dir.exists?(Crichton.descriptor_directory)
     if File.exist?(api_filename)
       unless FileUtils.identical?(sample_drd_doc, api_filename) || option == 'force'
         puts "Your sample descriptor file is different from Crichton's sample descriptor file. " <<
