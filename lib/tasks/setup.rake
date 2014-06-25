@@ -5,4 +5,5 @@ task :setup => :environment do
   Rake::Task['db:migrate'].invoke
   Rake::Task['db:seed'].invoke
   Rake::Task['config:deploy'].invoke
+  Rake::Task['load:resource_descriptor'].invoke
 end
