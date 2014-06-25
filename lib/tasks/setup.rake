@@ -2,6 +2,7 @@ desc 'Sets up the application'
 task :setup do
   Rake::Task['config:deploy'].invoke
   Rake::Task['build'].invoke
+  Rake::Task['load:resource_descriptor'].invoke
 end
 
 desc 'Builds the database'
