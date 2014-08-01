@@ -7,8 +7,17 @@ class DrdsController < ApplicationController
   end
   
   def index
-    @drds = Drds.find(params[:search_term])
-    respond_with(@drds, options)
+    if (params[:search_term] == 'search')
+      error = Error.new({ title: 'Not supported search term',
+                          error_code: :search_term_is_not_supported,
+                          http_status: 422,
+                          details: 'You requested search but it is not a valid search_term',
+                          controller: self})
+      respond_with(error, status: 404)
+    else
+      @drds = Drds.find(params[:search_term])
+      respond_with(@drds, options)
+    end
   end
   
   def create

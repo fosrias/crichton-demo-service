@@ -1,14 +1,14 @@
 GIT
   remote: git@github.com:mdsol/crichton.git
-  revision: ad53dbea77ec60706367af763e80b3ee17bd7608
-  tag: 0.0.1
+  revision: 072e95384e726d6bb5a9845f55c8d8cd0694236d
+  branch: self_transition_refactoring
   specs:
     crichton (0.0.1)
       activesupport (>= 3.2.0)
       addressable (~> 2.3.0)
       builder (>= 3.0.0)
       colorize (~> 0.6.0)
-      dice_bag (~> 0.7.0)
+      dice_bag (~> 0.8)
       diffy (~> 3.0.1)
       i18n (>= 0.6.5)
       nokogiri (>= 1.6.0)
@@ -57,10 +57,10 @@ GEM
       debugger-ruby_core_source (~> 1.2.0)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.4)
-    dice_bag (0.7.0)
+    dice_bag (0.8.0)
       rake
     diff-lcs (1.2.5)
-    diffy (3.0.5)
+    diffy (3.0.6)
     equivalent-xml (0.3.0)
       nokogiri (>= 1.4.3)
     erubis (2.7.0)

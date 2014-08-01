@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '3.2.0'
 
-gem 'crichton', git: 'git@github.com:mdsol/crichton.git', tag: '0.0.1'
+gem 'crichton', git: 'git@github.com:mdsol/crichton.git', branch: 'self_transition_refactoring'
 gem 'launchy'
 
 # Use sqlite3 as the database for Active Record
