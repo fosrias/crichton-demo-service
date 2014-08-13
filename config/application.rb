@@ -55,6 +55,10 @@ module CrichtonDemoService
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    require 'rack/accept'
+    config.middleware.use Rack::Accept
+    config.action_controller.action_on_unpermitted_parameters = :raise
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
   end
