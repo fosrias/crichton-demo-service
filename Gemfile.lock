@@ -48,8 +48,15 @@ GEM
     arel (3.0.3)
     builder (3.0.4)
     colorize (0.6.0)
+    columnize (0.8.9)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    debugger (1.5.0)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.0)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.4)
     dice_bag (0.8.0)
       rake
     diff-lcs (1.2.5)
@@ -144,6 +151,7 @@ PLATFORMS
 
 DEPENDENCIES
   crichton!
+  debugger (~> 1.5.0)
   equivalent-xml (~> 0.3.0)
   faraday (~> 0.9.0)
   jquery-rails

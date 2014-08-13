@@ -22,7 +22,7 @@ gem 'yajl-ruby', '~> 1.2.0'
 gem 'faraday',   '~> 0.9.0'
 
 group :test, :development do
-#  gem 'debugger',       '~> 1.5.0'
+  gem 'debugger',       '~> 1.5.0'
 end
 
 group :test do
