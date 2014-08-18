@@ -3,12 +3,15 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '3.2.0'
 
-gem 'crichton', git: 'git@github.com:mdsol/crichton.git', tag: '0.0.1'
+gem 'crichton', git: 'git@github.com:mdsol/crichton.git', tag: '0.0.3'
 gem 'launchy'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 gem 'rack', '=1.4.1' # To silence deprecation warnings.
+
+gem 'rack-accept', '~> 0.4'
+gem 'strongly_typed_parameters', '~> 0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
