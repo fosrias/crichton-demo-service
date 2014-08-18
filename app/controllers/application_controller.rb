@@ -3,11 +3,10 @@ require 'sample_errors'
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  ERROR_CAUSE = { ActionController::UnpermittedParameters => :unprocessable_entity, ActiveRecord::RecordNotFound => :not_found }
+
   rescue_from "StandardError" do |e|
-    error_cause = {ActionController::UnpermittedParameters => :unprocessable_entity,
-                   ActiveRecord::RecordNotFound => :not_found,
-    }[e.exception.class]
-    error_cause ||= :unprocessable_entity
+    error_cause ||= ERROR_CAUSE[e.exception.class] || :unprocessable_entity
     errors = Sample_errors.new({
       title: e.message,
       details: '',
