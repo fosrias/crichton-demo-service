@@ -1,5 +1,5 @@
 module DrdsExtensions
   def location_options(options)
-    { 'list' => %w(Brooklyn Queens Hoboken) }
+    { 'list' => %w(Nibiru Kronos Vulcan) }
   end
 end
