@@ -72,7 +72,7 @@ what happens if I include an HTML view, change the name of the [index.html.orb](
 
 Hint: It works like it should.
 
-[Crichton]: https://github.com/mdsol/crichton/tree/0.0.1
+[Crichton]: https://github.com/fosrias/crichton
 [_API Descriptor Document_]: https://github.com/mdsol/crichton/blob/0.0.1/spec/fixtures/resource_descriptors/drds_descriptor_v1.yml
 [supported media types]: https://github.com/mdsol/crichton/tree/0.0.1#supported-media-types
 [ALPS]: http://alps.io/spec/index.html
