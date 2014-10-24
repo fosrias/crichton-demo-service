@@ -2,17 +2,17 @@ class DrdsController < ApplicationController
   respond_to(:html, :xhtml, :hale_json, :hal_json)
   
   def show
-    @drd = Drd.find_by_uuid(params[:id])
+    @drd = build_drd_object(Drd.find_by_uuid(params[:id]))
     respond_with(@drd, options)
   end
   
   def index
-    @drds = Drds.find(params[:search_term])
-    respond_with(@drds, options)
+    @drds = build_drds_object(Drds.find(params[:search_term]))
+    respond_with(@drds.value, options)
   end
   
   def create
-    @drd = Drd.new(drd_params)
+    @drd = build_drd_object(Drd.new(drd_params))
     if @drd.save
       respond_with(@drd, options)
     else
@@ -21,7 +21,7 @@ class DrdsController < ApplicationController
   end
   
   def update
-    @drd = Drd.find_by_uuid(params[:id])
+    @drd = build_drd_object(Drd.find_by_uuid(params[:id]))
     
     if @drd.update_attributes(drd_params)
       respond_with(@drd, options)
@@ -31,7 +31,7 @@ class DrdsController < ApplicationController
   end
   
   def destroy
-    @drd = Drd.find_by_uuid(params[:id])
+    @drd = build_drd_object(Drd.find_by_uuid(params[:id]))
     @drd.destroy
     respond_with(@drd, options)
   end
@@ -47,7 +47,7 @@ class DrdsController < ApplicationController
   private
   
   def transition
-    @drd = Drd.find_by_uuid(params[:id])
+    @drd = build_drd_object(Drd.find_by_uuid(params[:id]))
 
     if @drd.send(params[:action])
       respond_with(@drd, options)
